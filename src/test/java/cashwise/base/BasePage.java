@@ -1,5 +1,6 @@
 package cashwise.base;
 
+import com.github.javafaker.Faker;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.*;
@@ -21,6 +22,7 @@ public abstract class BasePage {
     protected WebDriver driver;
     protected final Logger logger = LogManager.getLogger(this.getClass());
     private final int DEFAULT_WAIT_TIME = 10;
+    protected Faker faker = new Faker();
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
@@ -50,6 +52,16 @@ public abstract class BasePage {
             return wait.until(ExpectedConditions.elementToBeClickable(locator));
         } catch (TimeoutException e) {
             logger.error("Element not clickable after " + timeoutInSeconds + " seconds: " + locator);
+            throw e;
+        }
+    }
+
+    protected WebElement waitForElementToBeClickable(WebElement element, int timeoutInSeconds) {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
+            return wait.until(ExpectedConditions.elementToBeClickable(element));
+        } catch (TimeoutException e) {
+            logger.error("Element not clickable after " + timeoutInSeconds + " seconds: " + element);
             throw e;
         }
     }
