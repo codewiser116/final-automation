@@ -15,7 +15,7 @@ public class Driver {
     static WebDriver driver;
 
 
-    public static WebDriver initializeDriver(long timeInSeconds) {
+    public static WebDriver initializeDriver() {
         String browserType = ConfigReader.getProperty("browser");
 
         if (driver != null){
@@ -37,6 +37,7 @@ public class Driver {
                 logger.error("Unsupported browser type: " + browserType);
                 throw new IllegalArgumentException("Unsupported browser type: " + browserType);
         }
+        int timeInSeconds = Integer.parseInt(ConfigReader.getProperty("pageLoadTimeoutInSeconds"));
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(timeInSeconds));
         driver.manage().window().maximize();
         return driver;

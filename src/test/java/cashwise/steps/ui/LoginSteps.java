@@ -1,6 +1,7 @@
 package cashwise.steps.ui;
 
 import cashwise.base.BaseTest;
+import cashwise.utils.Driver;
 import io.cucumber.java.en.Given;
 import org.openqa.selenium.WebDriver;
 

@@ -1,6 +1,7 @@
 package cashwise.base;
 
 import cashwise.utils.ConfigReader;
+import cashwise.utils.Driver;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import org.apache.logging.log4j.LogManager;
@@ -13,7 +14,7 @@ import java.util.Properties;
 
 public class Hooks {
 
-    protected WebDriver driver;
+    protected WebDriver driver = Driver.getDriver();
     protected static Logger logger = LogManager.getLogger(Hooks.class);
     protected Properties configProperties = ConfigReader.loadConfigurations();
     BaseTest baseTest = new BaseTest();
@@ -23,7 +24,7 @@ public class Hooks {
     public void setUp() {
         configProperties = ConfigReader.loadConfigurations();
         logger.info("Starting Test Setup");
-        baseTest.initializeWebDriver();
+//        baseTest.initializeWebDriver();
 //        baseTest. initializeAPI();
 //        baseTest.initializeDatabaseConnection();
         logger.info("Test Setup Completed");
