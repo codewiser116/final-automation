@@ -3,6 +3,8 @@ package cashwise.steps.ui;
 import cashwise.base.BaseTest;
 import cashwise.utils.Driver;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.openqa.selenium.WebDriver;
 
 public class LoginSteps extends BaseTest {
@@ -12,5 +14,16 @@ public class LoginSteps extends BaseTest {
         driver = initializeWebDriver();
         driver.get(url);
     }
+
+    @When("user signs up with valid credentials")
+    public void user_signs_up_with_valid_credentials() {
+
+    }
+
+    @Then("verify user signed up successfully")
+    public void verify_user_signed_up_successfully() {
+
+    }
+
 
 }

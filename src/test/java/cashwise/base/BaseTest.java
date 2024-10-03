@@ -2,17 +2,12 @@ package cashwise.base;
 
 import cashwise.utils.ConfigReader;
 import cashwise.utils.Driver;
-import io.cucumber.java.After;
-import io.cucumber.java.Before;
 import io.restassured.RestAssured;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.edge.EdgeDriver;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.time.Duration;
 import java.util.Properties;
 import java.io.File;
 import java.io.IOException;
@@ -31,7 +26,7 @@ public class BaseTest {
 
 
     protected WebDriver initializeWebDriver() {
-        return driver = Driver.initializeDriver();
+        return driver = Driver.getDriver();
     }
 
     protected void initializeAPI() {
