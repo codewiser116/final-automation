@@ -1,17 +1,13 @@
 package cashwise.base;
 
 import cashwise.utils.ConfigReader;
-import io.cucumber.java.After;
-import io.cucumber.java.Before;
+import cashwise.utils.Driver;
 import io.restassured.RestAssured;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.edge.EdgeDriver;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.time.Duration;
 import java.util.Properties;
 import java.io.File;
 import java.io.IOException;
@@ -23,36 +19,14 @@ import org.apache.logging.log4j.Logger;
 
 public class BaseTest {
 
-    protected WebDriver driver;
+    protected WebDriver driver = Driver.getDriver();
     protected static Logger logger = LogManager.getLogger(BaseTest.class);
     protected Properties configProperties = ConfigReader.loadConfigurations();
     protected Connection dbConnection;
 
+    protected WebDriver initializeWebDriver(){
+        return driver = Driver.getDriver();
 
-
-    protected WebDriver initializeWebDriver() {
-        String browserType = configProperties.getProperty("browser");
-        long implicitWait = Long.parseLong(configProperties.getProperty("implicit.wait", "10"));
-        switch (browserType.toLowerCase()) {
-            case "chrome":
-                driver = new ChromeDriver();
-                logger.info("ChromeDriver initialized");
-                break;
-            case "firefox":
-                driver = new FirefoxDriver();
-                logger.info("FirefoxDriver initialized");
-                break;
-            case "edge":
-                driver = new EdgeDriver();
-                logger.info("EdgeDriver initialized");
-                break;
-            default:
-                logger.error("Unsupported browser type: " + browserType);
-                throw new IllegalArgumentException("Unsupported browser type: " + browserType);
-        }
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(implicitWait));
-        driver.manage().window().maximize();
-        return driver;
     }
 
     protected void initializeAPI() {
