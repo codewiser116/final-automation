@@ -25,7 +25,7 @@ public abstract class BaseTest {
 
     protected WebDriver driver;
     protected static Logger logger = LogManager.getLogger(BaseTest.class);
-    protected Properties configProperties;
+    protected Properties configProperties = ConfigReader.loadConfigurations();
     protected Connection dbConnection;
 
     @Before
@@ -56,7 +56,7 @@ public abstract class BaseTest {
         logger.info("Test Teardown Completed");
     }
 
-    protected void initializeWebDriver() {
+    protected WebDriver initializeWebDriver() {
         String browserType = configProperties.getProperty("browser");
         long implicitWait = Long.parseLong(configProperties.getProperty("implicit.wait", "10"));
         switch (browserType.toLowerCase()) {
@@ -78,6 +78,7 @@ public abstract class BaseTest {
         }
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(implicitWait));
         driver.manage().window().maximize();
+        return driver;
     }
 
     protected void initializeAPI() {
