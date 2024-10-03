@@ -1,0 +1,1 @@
+2024-10-03 18:20:05.619 [main] ERROR cashwise.pages.ui.LoginPage - Element not clickable after 20 seconds: Proxy element for: DefaultElementLocator 'By.id: //button[text()='Continue']'
