@@ -28,27 +28,27 @@ public class BaseApiTest {
     // Common RequestSpecification for RestAssured
     protected RequestSpecification requestSpec;
 
-    /**
-     * This method runs before any test method in the class.
-     * It loads API configurations and initializes RestAssured settings.
-     */
-    @Before
-    public void setUpApi() {
-
-        // Initialize RestAssured settings
-        initializeRestAssured();
-        logger.info("API Test Setup Completed");
-    }
-
-    /**
-     * This method runs after all test methods in the class have been run.
-     * It can be used for any cleanup if necessary.
-     */
-    @After
-    public void tearDownApi() {
-        // Perform any necessary cleanup
-        logger.info("API Test Teardown Completed");
-    }
+//    /**
+//     * This method runs before any test method in the class.
+//     * It loads API configurations and initializes RestAssured settings.
+//     */
+//    @Before
+//    public void setUpApi() {
+//
+//        // Initialize RestAssured settings
+//        initializeRestAssured();
+//        logger.info("API Test Setup Completed");
+//    }
+//
+//    /**
+//     * This method runs after all test methods in the class have been run.
+//     * It can be used for any cleanup if necessary.
+//     */
+//    @After
+//    public void tearDownApi() {
+//        // Perform any necessary cleanup
+//        logger.info("API Test Teardown Completed");
+//    }
 
     /**
      * Initializes RestAssured configurations for API testing.
