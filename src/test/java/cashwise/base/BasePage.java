@@ -1,5 +1,6 @@
 package cashwise.base;
 
+import cashwise.models.DataStorage;
 import com.github.javafaker.Faker;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
@@ -23,6 +24,7 @@ public abstract class BasePage {
     protected final Logger logger = LogManager.getLogger(this.getClass());
     private final int DEFAULT_WAIT_TIME = 10;
     protected Faker faker = new Faker();
+    public DataStorage dataStorage = new DataStorage();
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
@@ -76,25 +78,25 @@ public abstract class BasePage {
         }
     }
 
-    protected void click(By locator) {
+    protected void click(WebElement element) {
         int attempts = 0;
         int maxRetries = 3;
         while (attempts < maxRetries) {
             try {
-                WebElement element = waitForElementToBeClickable(locator);
+                waitForElementToBeClickable(element, 20);
                 element.click();
-                logger.info("Clicked on element: " + locator);
+                logger.info("Clicked on element: " + element);
                 return;
             } catch (StaleElementReferenceException | ElementClickInterceptedException e) {
                 attempts++;
                 logger.warn("Attempt " + attempts + " to click element failed. Retrying...");
                 sleep(500);
             } catch (Exception e) {
-                logger.error("Failed to click on element: " + locator, e);
+                logger.error("Failed to click on element: " + element, e);
                 throw e;
             }
         }
-        throw new RuntimeException("Failed to click on element after " + maxRetries + " attempts: " + locator);
+        throw new RuntimeException("Failed to click on element after " + maxRetries + " attempts: " + element);
     }
 
     protected void enterText(By locator, String text) {

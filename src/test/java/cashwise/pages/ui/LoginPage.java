@@ -1,7 +1,6 @@
 package cashwise.pages.ui;
 
 import cashwise.base.BasePage;
-import cashwise.utils.Driver;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -33,51 +32,61 @@ public class LoginPage extends BasePage {
     public WebElement continueBtn;
 
     @FindBy(id = "first_name_input_text")
-    private WebElement firstNameInput;
+    public WebElement firstName;
 
     @FindBy(id = "last_name_input_text")
-    private WebElement lastnameInput;
-
+    public WebElement lastName;
 
     @FindBy(id = "company_name_input_text")
-    private WebElement companyInput;
+    public WebElement nameOfBusiness;
 
     @FindBy(id = "mui-component-select-business_area_id")
-    private WebElement areaOfBusiness;
+    public WebElement areaOfBusinessDropdown;
+
+    @FindBy(xpath = "//li[text()='IT, Software Development']")
+    public WebElement businessOption;
+
+    @FindBy(id = "address_input_text")
+    public WebElement address;
 
     @FindBy(id = "mui-component-select-currency")
-    private WebElement selectCurrency;
+    public WebElement currencyDropDown;
 
-    @FindBy(id = "//li[@data-value='USD']")
-    private WebElement currencyOption;
+    @FindBy(xpath = "//li[@data-value='USD']")
+    public WebElement currencyOption;
 
     @FindBy(xpath = "//button[@form='register-form-2']")
-    private WebElement secondSignBtn;
+    public WebElement secondSignUpBtn;
 
-
-    public void singUp(){
+    public void signUp(){
         signUpBtn.click();
-        emailField.sendKeys(faker.internet().emailAddress());
+
+        String email = faker.internet().emailAddress();
+        dataStorage.addData("email", email);
+        emailField.sendKeys(email);
+
         String password = faker.internet().password();
+        dataStorage.addData("password", password);
         passwordField.sendKeys(password);
         confirmPasswordField.sendKeys(password);
-        continueBtn.click();
 
-        firstNameInput.sendKeys(faker.name().firstName());
-        lastnameInput.sendKeys(faker.name().lastName());
-        companyInput.sendKeys(faker.company().name());
-        areaOfBusiness.click();
+        click(continueBtn);
 
+        firstName.sendKeys(faker.name().firstName());
+        lastName.sendKeys(faker.name().lastName());
+        nameOfBusiness.sendKeys(faker.company().name());
 
+        areaOfBusinessDropdown.click();
+        businessOption.click();
 
+        address.sendKeys(faker.address().fullAddress());
+
+        currencyDropDown.click();
+        currencyOption.click();
+
+        secondSignUpBtn.click();
     }
 
-
 }
-
-
-
-
-
 
 
