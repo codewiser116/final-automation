@@ -1,10 +1,13 @@
 package cashwise.pages.ui;
 
 import cashwise.base.BasePage;
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
+import java.util.Objects;
 
 public class LoginPage extends BasePage {
 
@@ -58,6 +61,10 @@ public class LoginPage extends BasePage {
     @FindBy(xpath = "//button[@form='register-form-2']")
     public WebElement secondSignUpBtn;
 
+    @FindBy(xpath = "//p[@class='MuiTypography-root MuiTypography-body1  css-1p85ki1']")
+    public WebElement nameVerification;
+
+
     public void signUp(){
         signUpBtn.click();
 
@@ -72,8 +79,14 @@ public class LoginPage extends BasePage {
 
         click(continueBtn);
 
-        firstName.sendKeys(faker.name().firstName());
+        String firstName2 = faker.name().firstName();
+        firstName.sendKeys(firstName2);
+        dataStorage.addData("firstname",firstName2);
+
+        String lastname2 = faker.name().lastName();
         lastName.sendKeys(faker.name().lastName());
+        dataStorage.addData("lastname", lastname2);
+        
         nameOfBusiness.sendKeys(faker.company().name());
 
         areaOfBusinessDropdown.click();
@@ -84,7 +97,15 @@ public class LoginPage extends BasePage {
         currencyDropDown.click();
         currencyOption.click();
 
+        sleep(2000);
+
         secondSignUpBtn.click();
+
+
+
+
+
+
     }
 
 }

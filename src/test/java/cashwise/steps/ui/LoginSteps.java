@@ -6,6 +6,7 @@ import cashwise.utils.Driver;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 
 public class LoginSteps extends BaseTest {
@@ -28,6 +29,24 @@ public class LoginSteps extends BaseTest {
 
     @Then("verify user signed up successfully")
     public void verify_user_signed_up_successfully() {
+
+        String desiredURL = "https://cashwise.us/dashboard/infographics";
+        if(driver.getCurrentUrl().equals(desiredURL)){
+            Assert.assertEquals(desiredURL, driver.getCurrentUrl());
+
+        }
+
+//      Assert.assertEquals(loginPage.nameVerification.getText(), loginPage.dataStorage.get("firstname"));
+        String nameVerify= loginPage.dataStorage.get("firstname");
+
+        System.out.println(nameVerify);
+        System.out.println("name is: " + loginPage.nameVerification.getText());
+
+
+
+
+
+
 
     }
 
