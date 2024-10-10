@@ -24,9 +24,9 @@ public class BaseTest {
     protected Properties configProperties = ConfigReader.loadConfigurations();
     protected Connection dbConnection;
 
-    protected WebDriver initializeWebDriver(){
-        return driver = Driver.getDriver();
 
+    protected WebDriver initializeWebDriver() {
+        return driver = Driver.getDriver();
     }
 
     protected void initializeAPI() {

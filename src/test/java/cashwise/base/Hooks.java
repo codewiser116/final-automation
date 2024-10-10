@@ -24,6 +24,10 @@ public class Hooks {
     public void setUp() {
         configProperties = ConfigReader.loadConfigurations();
         logger.info("Starting Test Setup");
+//        baseTest.initializeWebDriver();
+//        baseTest. initializeAPI();
+//        baseTest.initializeDatabaseConnection();
+
         logger.info("Test Setup Completed");
     }
 

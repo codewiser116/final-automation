@@ -18,7 +18,7 @@ public class Driver {
     public static WebDriver getDriver() {
         String browserType = ConfigReader.getProperty("browser");
 
-        if (driver != null){
+        if (driver != null) {
             return driver;
         }
 
@@ -43,12 +43,13 @@ public class Driver {
         return driver;
     }
 
-    public static void closeDriver(){
-        if (driver != null){
+    public static void closeDriver() {
+        if (driver != null) {
             driver.quit();
             driver = null;
         }
     }
-
-
 }
+
+
+

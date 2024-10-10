@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
         features = "src/test/resources/features",
         glue = "cashwise.steps",
         tags = "@signup",
-        dryRun = true
+        dryRun = false
 
 )
 public class CucumberRunner{
