@@ -72,7 +72,10 @@ public class LoginPage extends BasePage {
 
         click(continueBtn);
 
-        firstName.sendKeys(faker.name().firstName());
+        String first_name = faker.name().firstName();
+        firstName.sendKeys(first_name);
+        dataStorage.addData("first_name", first_name);
+
         lastName.sendKeys(faker.name().lastName());
         nameOfBusiness.sendKeys(faker.company().name());
 
