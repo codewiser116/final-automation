@@ -4,6 +4,7 @@ import cashwise.models.pojo.CustomRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.RestAssured;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
@@ -15,6 +16,8 @@ import org.xml.sax.SAXException;
 
 import java.io.*;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -171,6 +174,38 @@ public class ApiUtils {
                 .post("/api/myaccount/auth/login");
 
         return response.jsonPath().getString("jwt_token");
+    }
+
+
+
+    public static String getID(Response response, String regex){
+        String id = null;
+        JsonPath jsonPath = response.jsonPath();
+
+        // Get the map of all key-value pairs from the JSON response
+        Map<String, Object> responseMap = jsonPath.getMap("");
+
+        // Define a regex pattern to match keys ending with "_id"
+        Pattern pattern = Pattern.compile(".*" + regex + "$");
+
+        // Iterate through the map and look for keys that match the regex
+        String matchedId = null;
+        for (String key : responseMap.keySet()) {
+            Matcher matcher = pattern.matcher(key);
+            if (matcher.matches()) {
+                matchedId = jsonPath.getString(key);  // Get the value for the matched key
+                break;
+            }
+        }
+
+        // Use the matched ID if found
+        if (matchedId != null) {
+            id = matchedId;
+            logger.info("Matched ID: " + id);
+        } else {
+            logger.warn("No ID matching the pattern '_id' found.");
+        }
+        return id;
     }
 
 }

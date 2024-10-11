@@ -1,1 +1,4 @@
-2024-10-03 18:20:05.619 [main] ERROR cashwise.pages.ui.LoginPage - Element not clickable after 20 seconds: Proxy element for: DefaultElementLocator 'By.id: //button[text()='Continue']'
+2024-10-11 17:40:29.156 [main] WARN  cashwise.utils.ApiUtils - No ID matching the pattern '_id' found.
+2024-10-11 17:46:40.383 [main] WARN  cashwise.utils.ApiUtils - No ID matching the pattern '_id' found.
+2024-10-11 18:05:48.529 [main] WARN  cashwise.utils.ApiUtils - No ID matching the pattern '_id' found.
+2024-10-11 18:06:55.145 [main] WARN  cashwise.utils.ApiUtils - No ID matching the pattern '_id' found.

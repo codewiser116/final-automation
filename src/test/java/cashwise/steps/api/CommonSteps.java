@@ -17,6 +17,9 @@ import org.junit.Assert;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+import io.restassured.path.json.JsonPath;
 
 public class CommonSteps extends ApiUtils{
 
@@ -24,6 +27,7 @@ public class CommonSteps extends ApiUtils{
     RequestSpecification requestSpecification;
     Response response;
     ObjectMapper objectMapper = new ObjectMapper();
+    String id;
 
 
     @Given("base url {string}")
@@ -55,9 +59,22 @@ public class CommonSteps extends ApiUtils{
     @Then("I hit POST {string} endpoint")
     public void i_hit_post_endpoint(String endpoint) {
         response = requestSpecification.post(endpoint);
+        logger.info(response.prettyPrint());
+
+        id = getID(response, "id");
+        logger.info("Retrieved id: " + id);
     }
     @Then("I verify status code is {int}")
     public void i_verify_status_code_is(Integer statusCode) {
         Assert.assertEquals((int) statusCode, response.getStatusCode());
+    }
+    @Then("I hit DELETE {string} endpoint")
+    public void i_hit_delete_endpoint(String endpoint) {
+        // Ternary operator
+        endpoint = endpoint.endsWith("/") ? endpoint + id : endpoint + "/" + id;
+
+        response = requestSpecification.delete(endpoint);
+        logger.info(response.prettyPrint());
+        logger.info(response.getStatusCode());
     }
 }
