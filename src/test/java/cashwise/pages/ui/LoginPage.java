@@ -11,7 +11,7 @@ public class LoginPage extends BasePage {
     WebDriver driver;
 
     public LoginPage(WebDriver driver){
-        super(driver);
+        super();
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
@@ -76,7 +76,10 @@ public class LoginPage extends BasePage {
         firstName.sendKeys(first_name);
         dataStorage.addData("first_name", first_name);
 
-        lastName.sendKeys(faker.name().lastName());
+        String last_name = faker.name().lastName();
+        lastName.sendKeys(last_name);
+        dataStorage.addData("last_name", last_name);
+
         nameOfBusiness.sendKeys(faker.company().name());
 
         areaOfBusinessDropdown.click();
@@ -87,6 +90,7 @@ public class LoginPage extends BasePage {
         currencyDropDown.click();
         currencyOption.click();
 
+        waitForElementToBeClickable(secondSignUpBtn, 20);
         secondSignUpBtn.click();
     }
 

@@ -1,6 +1,7 @@
 package cashwise.base;
 
 import cashwise.models.DataStorage;
+import cashwise.utils.Driver;
 import com.github.javafaker.Faker;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
@@ -20,16 +21,15 @@ import org.apache.logging.log4j.Logger;
 
 public abstract class BasePage {
 
-    protected WebDriver driver;
+    protected WebDriver driver = Driver.getDriver();
     protected final Logger logger = LogManager.getLogger(this.getClass());
     private final int DEFAULT_WAIT_TIME = 10;
     protected Faker faker = new Faker();
     public DataStorage dataStorage = new DataStorage();
 
-    public BasePage(WebDriver driver) {
-        this.driver = driver;
-    }
+    public BasePage() {
 
+    }
     protected WebElement waitForVisibility(By locator) {
         return waitForVisibility(locator, DEFAULT_WAIT_TIME);
     }
@@ -151,9 +151,13 @@ public abstract class BasePage {
     }
 
     protected void waitForPageToLoad(int timeoutInSeconds) {
-        new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds)).until(
-                webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(timeoutInSeconds));
         logger.info("Page loaded completely");
+    }
+
+    protected void waitForTextToAppear(int timeoutInSeconds, WebElement element, String text) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
+        wait.until(ExpectedConditions.textToBePresentInElement(element, text));
     }
 
     protected void selectByVisibleText(By locator, String text) {

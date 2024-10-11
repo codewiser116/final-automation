@@ -17,13 +17,16 @@ import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class BaseTest {
+public class BaseTest extends BasePage{
 
     protected WebDriver driver;
     protected static Logger logger = LogManager.getLogger(BaseTest.class);
     protected Properties configProperties = ConfigReader.loadConfigurations();
     protected Connection dbConnection;
 
+    public BaseTest() {
+        super();
+    }
 
     protected WebDriver initializeWebDriver() {
         return driver = Driver.getDriver();

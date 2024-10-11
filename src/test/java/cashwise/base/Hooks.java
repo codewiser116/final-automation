@@ -17,7 +17,6 @@ public class Hooks {
     protected WebDriver driver = Driver.getDriver();
     protected static Logger logger = LogManager.getLogger(Hooks.class);
     protected Properties configProperties = ConfigReader.loadConfigurations();
-    BaseTest baseTest = new BaseTest();
     protected Connection dbConnection;
 
     @Before

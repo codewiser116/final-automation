@@ -1,12 +1,15 @@
 package cashwise.utils;
 
+import cashwise.models.pojo.CustomRequest;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 
 
-
+import org.checkerframework.checker.units.qual.C;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
@@ -150,6 +153,24 @@ public class ApiUtils {
      */
     public static RequestSpecification addOAuth2Token(String token) {
         return RestAssured.given().auth().oauth2(token);
+    }
+
+    public static String getToken(String email, String password) throws JsonProcessingException {
+
+        CustomRequest customRequest = new CustomRequest();
+        customRequest.setEmail(email);
+        customRequest.setPassword(password);
+
+        String jsonBody = new ObjectMapper().writeValueAsString(customRequest);
+
+
+        Response response = RestAssured.given().baseUri("https://backend.cashwise.us")
+                .contentType(ContentType.JSON)
+                .accept(ContentType.JSON)
+                .body(jsonBody)
+                .post("/api/myaccount/auth/login");
+
+        return response.jsonPath().getString("jwt_token");
     }
 
 }
